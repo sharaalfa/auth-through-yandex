@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+
+option java_multiple_files = true;
+option java_package = "io.example.account.yandex.grpc";
+option java_outer_classname = "YandexProto";
+
+package yandex;
+
+message VoidRequest {
+}
+
+message RedirectResponse {
+  string url = 1;
+}
+
+message TokenRequest {
+  string id = 1;
+}
+
+message CodeRequest {
+  int64 id = 1;
+}
+
+message UserDataResponse {
+  string email = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string birthday = 4;
+  string sex = 5;
+  string number = 6;
+  string avatar = 7;
+  string accessToken = 8;
+  int64  expiresIn = 9;
+  string refreshToken = 10;
+  string login = 11;
+}
+
+message YandexTokensResponse {
+  string accessToken = 1;
+  int64  expiresIn = 2;
+  string refreshToken = 3;
+}
+
+service YandexUserService {
+  rpc Redirect(VoidRequest) returns (RedirectResponse){}
+  rpc GetUserData(TokenRequest) returns (UserDataResponse){}
+  rpc GetUserDataByCode(CodeRequest) returns (UserDataResponse){}
+  rpc UpdateYandexTokens(TokenRequest) returns (YandexTokensResponse){}
+}
