@@ -1,0 +1,54 @@
+syntax = 'proto3';
+
+option java_multiple_files = true;
+option java_package = "io.example.account.session.grpc";
+option java_outer_classname = "SessionProto";
+
+package session;
+
+import "base.proto";
+
+message CodeRequest {
+  string clientId = 1;
+  string code     = 2;
+  string url      = 3;
+}
+
+message TokenRequest {
+  string accessToken = 1;
+}
+
+message RefreshRequest {
+  string clientId    = 1;
+  string accessToken = 2;
+  string url         = 3;
+}
+
+message VoidResponse {
+
+}
+
+message ExpiredResponse {
+  bool expired = 1;
+  string email = 2;
+}
+
+message AuthResponse {
+  string email = 1;
+  string accessToken = 2;
+  string idToken = 3;
+}
+
+
+message UserResponse {
+  string email = 1;
+}
+
+
+service SessionService {
+  rpc Authentication(CodeRequest) returns (AuthResponse) {}
+  rpc YaAuthentication(CodeRequest) returns (base.UserDataResponse) {}
+  rpc Authorization(TokenRequest) returns (ExpiredResponse) {}
+  rpc RefreshToken(RefreshRequest) returns (UserResponse) {}
+  rpc Logout(TokenRequest) returns (VoidResponse) {}
+}

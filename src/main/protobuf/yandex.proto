@@ -7,6 +7,8 @@ option java_outer_classname = "YandexProto";
 
 package yandex;
 
+import "base.proto";
+
 message VoidRequest {
 }
 
@@ -22,29 +24,14 @@ message CodeRequest {
   int64 id = 1;
 }
 
-message UserDataResponse {
-  string email = 1;
-  string firstName = 2;
-  string lastName = 3;
-  string birthday = 4;
-  string sex = 5;
-  string number = 6;
-  string avatar = 7;
-  string accessToken = 8;
-  int64  expiresIn = 9;
-  string refreshToken = 10;
-  string login = 11;
-}
-
-message YandexTokensResponse {
+message TokensResponse {
   string accessToken = 1;
   int64  expiresIn = 2;
   string refreshToken = 3;
 }
 
-service YandexUserService {
+service YandexService {
   rpc Redirect(VoidRequest) returns (RedirectResponse){}
-  rpc GetUserData(TokenRequest) returns (UserDataResponse){}
-  rpc GetUserDataByCode(CodeRequest) returns (UserDataResponse){}
-  rpc UpdateYandexTokens(TokenRequest) returns (YandexTokensResponse){}
+  rpc GetUserData(TokenRequest) returns (base.UserDataResponse){}
+  rpc UpdateYandexTokens(TokenRequest) returns (TokensResponse){}
 }

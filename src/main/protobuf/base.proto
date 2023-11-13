@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+
+option java_multiple_files = true;
+option java_package = "io.example.account.base.grpc";
+option java_outer_classname = "BaseProto";
+
+package base;
+
+message UserDataResponse {
+  string email = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string birthday = 4;
+  string sex = 5;
+  string number = 6;
+  string avatar = 7;
+  string accessToken = 8;
+  int64  expiresIn = 9;
+  string refreshToken = 10;
+  string login = 11;
+}

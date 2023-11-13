@@ -9,10 +9,24 @@ import pureconfig.generic.derivation.default.*
 package object config:
 
   type AppConfig = AppConfig.Config
-  type YandexConfig = YandexConfig.Config
-  type ServerConfig = ServerConfig.Config
-  
+  type Psql      = PsqlConfig.Config
+  type Yandex    = YandexConfig.Config
+  type Server    = ServerConfig.Config
+  type Keycloak  = KeycloakConfig.Config
+
+
+  object PsqlConfig:
+
+    final case class Config(name: String,
+                            user: String,
+                            password: String,
+                            host: String,
+                            port: Int,
+                            max: Int)
+
+
   object YandexConfig:
+
     final case class Config(redirectUrl: String,
                             clientId: String,
                             redirectUri: String,
@@ -23,10 +37,22 @@ package object config:
                             grantTypeAuth: String,
                             grantTypeRefresh: String,
                             avatarUrl: String,
-                            size: String) derives ConfigReader
-    
-  object ServerConfig: 
-    final case class Config(port: Int)
+                            size: String,
+                            forceConfirm: String)
+
+  object ServerConfig:
+
+    final case class Config(host: String, port: Int, timeZone: String)
+
+  object KeycloakConfig:
+
+    final case class Config(masterAuthUrl: String,
+                            hseAuthUrl: String,
+                            clientCli: String,
+                            passwordGrantType: String,
+                            codeGrantType: String,
+                            clientSecret: String)
+
 
 
 
